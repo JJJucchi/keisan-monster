@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>けいさんモンスター</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="game">
+
+    <h1>けいさんモンスター</h1>
+
+    <div id="rareLabel" class="rare-label">
+      ✨レアモンスター✨
+    </div>
+
+    <div class="monster-area">
+
+      <div class="enemy-name" id="enemyName">
+        メタモン
+      </div>
+
+      <img
+      id="monster"
+      class="monster-image"
+      src="images/metamon.png"
+      >
+
+      <div class="hp-box">
+        <div class="hp-bar" id="hpBar"></div>
+      </div>
+
+    </div>
+
+    <div class="question" id="question">
+      12 + 15 = ?
+    </div>
+
+    <div class="buttons" id="buttons"></div>
+
+    <div class="message" id="message"></div>
+
+    <div class="combo" id="combo"></div>
+
+    <div class="info">
+      <div>Lv <span id="level">1</span></div>
+      <div>たおした数 <span id="score">0</span></div>
+    </div>
+
+    <button class="start-btn" id="startBtn">
+      スタート！
+    </button>
+
+    <div class="collection-box">
+
+      <h2>モンスターずかん</h2>
+
+      <div id="monsterBook" class="monster-book"></div>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
