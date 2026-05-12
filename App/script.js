@@ -1,11 +1,11 @@
 const monsters = [
-  {id:1,name:"メタモン",image:"images/メタモン.png"},
-  {id:2,name:"レックウザ",image:"images/レックウザ.png"},
-  {id:3,name:"カイオーガ",image:"images/カイオーガ.png"},
-  {id:4,name:"ルカリオ",image:"images/ルカリオ.png"},
-  {id:5,name:"ミュウ",image:"images/ミュウ.png"},
-  {id:6,name:"チルタリス",image:"images/チルタリス.png"},
-  {id:7,name:"ゲンガー",image:"images/ゲンガー.png"},
+  {id:1,name:"メタモン",image:"images/metamon.png"},
+  {id:2,name:"レックウザ",image:"images/rekkuuza.png"},
+  {id:3,name:"カイオーガ",image:"images/kaioga.png"},
+  {id:4,name:"ルカリオ",image:"images/rukario.png"},
+  {id:5,name:"ミュウ",image:"images/myuu.png"},
+  {id:6,name:"チルタリス",image:"images/tirutarisu.png"},
+  {id:7,name:"ゲンガー",image:"images/genga.png"},
 
 ];
 
