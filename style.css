@@ -252,3 +252,167 @@ h1{
   object-fit:contain;
   margin-bottom:4px;
 }
+.rare-monster{
+  filter:
+    drop-shadow(0 0 10px #4da6ff);
+}
+
+.epic-monster{
+  filter:
+    drop-shadow(0 0 14px #bb66ff);
+
+  animation:
+    float 2s infinite ease-in-out,
+    sparkleEpic 1s infinite;
+}
+
+.legend-monster{
+  filter:
+    drop-shadow(0 0 18px gold);
+
+  animation:
+    float 2s infinite ease-in-out,
+    sparkleLegend 0.7s infinite;
+}
+
+@keyframes sparkleEpic{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+}
+
+@keyframes sparkleLegend{
+
+  0%{
+    transform:scale(1) rotate(-2deg);
+    filter:
+      brightness(1.0)
+      drop-shadow(0 0 18px gold);
+  }
+
+  50%{
+    transform:scale(1.12) rotate(2deg);
+    filter:
+      brightness(1.4)
+      drop-shadow(0 0 28px yellow);
+  }
+
+  100%{
+    transform:scale(1) rotate(-2deg);
+    filter:
+      brightness(1.0)
+      drop-shadow(0 0 18px gold);
+  }
+}
+.attack-effect{
+
+  height:50px;
+
+  font-size:34px;
+
+  font-weight:bold;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  opacity:0;
+
+  transform:scale(0.5);
+
+  transition:0.3s;
+}
+
+.attack-show{
+
+  opacity:1;
+
+  transform:scale(1.2);
+}
+
+.magic{
+
+  color:#4da6ff;
+
+  text-shadow:
+    0 0 10px #4da6ff,
+    0 0 20px #8fd3ff;
+}
+
+.slash{
+
+  color:#ff4444;
+
+  text-shadow:
+    0 0 10px #ff4444,
+    0 0 20px #ff9999;
+}
+.boss-warning{
+
+  position:fixed;
+
+  inset:0;
+
+  background:black;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  z-index:9999;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:0.5s;
+}
+
+.warning-show{
+
+  opacity:1;
+}
+
+.warning-text{
+
+  color:red;
+
+  font-size:48px;
+
+  font-weight:bold;
+
+  animation:warningFlash 0.5s infinite;
+
+  text-align:center;
+}
+
+@keyframes warningFlash{
+
+  0%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  50%{
+    opacity:0.3;
+    transform:scale(1.1);
+  }
+
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
+}

@@ -1,33 +1,65 @@
 const monsters = [
-  {id:1,name:"メタモン",image:"images/metamon.png"},
-  {id:2,name:"レックウザ",image:"images/rekkuuza.png"},
-  {id:3,name:"カイオーガ",image:"images/kaioga.png"},
-  {id:4,name:"ルカリオ",image:"images/rukario.png"},
-  {id:5,name:"ミュウ",image:"images/myuu.png"},
-  {id:6,name:"チルタリス",image:"images/tirutarisu.png"},
-  {id:7,name:"ゲンガー",image:"images/genga.png"},
-  {id:8,name:"ピカチュウ",image:"images/pikachuu.png"},
-  {id:9,name:"キャプテンピカチュウ",image:"images/capttainpikachuu.png"},
-  {id:10,name:"メガカイリュー",image:"images/megakairyu.png"},
-  {id:11,name:"色違いのメガメタグロス",image:"images/megametagurosu.png"},
-  {id:12,name:"メガガブリアス",image:"images/megagaburiasu.png"},
-  {id:13,name:"ニャオハ",image:"images/nyaoha.png"},
-  {id:14,name:"ケルディオ",image:"images/kerudelio.png"},
-  {id:15,name:"イーブイ",image:"images/i-bui.png"},
-  {id:16,name:"ニンフィア",image:"images/ninfia.png"},
-  {id:17,name:"リーフィア",image:"images/ri-fia.png"},
-  {id:18,name:"サンダース",image:"images/sannda-su.png"},
-  {id:19,name:"ブースター",image:"images/bu-suta.png"},
-  {id:20,name:"ファイヤー",image:"images/faiyaa.png"},
-  {id:21,name:"サンダー",image:"images/sandaa.png"},
-  {id:22,name:"フリーザー",image:"images/huri-za.png"},
-  {id:23,name:"色違いのジガルデ",image:"images/jigarude.png"},
-  {id:24,name:"色違いのジガルデ",image:"images/jigarude2.png"},
-  {id:25,name:"ダークライ",image:"images/da-kurai.png"},
+  {id:1,name:"メタモン",image:"images/metamon.png",rare:"normal"},
+  {id:2,name:"レックウザ",image:"images/rekkuuza.png",rare:"epic"},
+  {id:3,name:"カイオーガ",image:"images/kaioga.png",rare:"epic"},
+  {id:4,name:"ルカリオ",image:"images/rukario.png",rare:"rare"},
+  {id:5,name:"ミュウ",image:"images/myuu.png",rare:"rare"},
+  {id:6,name:"チルタリス",image:"images/tirutarisu.png",rare:"normal"},
+  {id:7,name:"ゲンガー",image:"images/genga.png",rare:"normal"},
+  {id:8,name:"ピカチュウ",image:"images/pikachuu.png",rare:"normal"},
+  {id:9,name:"キャプテンピカチュウ",image:"images/capttainpikachuu.png",rare:"normal"},
+  {id:10,name:"メガカイリュー",image:"images/megakairyu.png",rare:"epic"},
+  {id:11,name:"色違いのメガメタグロス",image:"images/megametagurosu.png",rare:"epic"},
+  {id:12,name:"メガガブリアス",image:"images/megagaburiasu.png",rare:"epic"},
+  {id:13,name:"ニャオハ",image:"images/nyaoha.png",rare:"normal"},
+  {id:14,name:"ケルディオ",image:"images/kerudelio.png",rare:"normal"},
+  {id:15,name:"イーブイ",image:"images/i-bui.png",rare:"normal"},
+  {id:16,name:"ニンフィア",image:"images/ninfia.png",rare:"rare"},
+  {id:17,name:"リーフィア",image:"images/ri-fia.png",rare:"rare"},
+  {id:18,name:"サンダース",image:"images/sannda-su.png",rare:"rare"},
+  {id:19,name:"ブースター",image:"images/bu-suta.png",rare:"rare"},
+  {id:20,name:"ファイヤー",image:"images/faiyaa.png",rare:"rare"},
+  {id:21,name:"サンダー",image:"images/sandaa.png",rare:"rare"},
+  {id:22,name:"フリーザー",image:"images/huri-za.png",rare:"rare"},
+  {id:23,name:"色違いのジガルデ",image:"images/jigarude.png",rare:"rare"},
+  {id:24,name:"色違いのジガルデ",image:"images/jigarude2.png",rare:"legend"},
+  {id:25,name:"ダークライ",image:"images/da-kurai.png",rare:"epic"},
+
+  {id:26,name:"すずなのピカチュウ",image:"images/yowaipikachuu.png",rare:"normal"},
+  {id:27,name:"すずなのフワテテとメタモン",image:"images/huwatete.png",rare:"normal"},
+  {id:28,name:"すずなのプリン",image:"images/suzunanopurin.png",rare:"normal"},
+  {id:29,name:"ガラルのファイヤー",image:"images/faiya2.png",rare:"epic"},
+  {id:30,name:"ギャラドス",image:"images/gyaradosu.png",rare:"rare"},
+  {id:31,name:"カビゴン",image:"images/kabigon.png",rare:"rare"},
+  {id:32,name:"色違いのメガハッサム",image:"images/megahassamu2.png",rare:"epic"},
+  {id:33,name:"パルキア",image:"images/parukia.png",rare:"legend"},
+  {id:34,name:"ミュウツー",image:"images/myuu2.png",rare:"epic"},
+
+  {id:35,name:"レジアイス",image:"images/rejiaisu.png",rare:"rare"},
+  {id:36,name:"レジギガス",image:"images/rejigigasu.png",rare:"epic"},
+  {id:37,name:"エースバーン",image:"images/e-suba-n.png",rare:"rare"},
+  {id:38,name:"ラティオス",image:"images/ratiosu.png",rare:"rare"},
+  {id:39,name:"ラティアス",image:"images/ratiasu.png",rare:"rare"},
+  {id:40,name:"レジロック",image:"images/rejirokku.png",rare:"rare"},
+  {id:41,name:"ヒバニー",image:"images/hibani.png",rare:"normal"},
+  {id:42,name:"アチャモ",image:"images/atyamo.png",rare:"normal"},
+  {id:43,name:"ルギア",image:"images/rugia.png",rare:"legend"},
+  {id:44,name:"ホウオウ",image:"images/houou.png",rare:"legend"},
+  {id:45,name:"チコリータ",image:"images/tikori-ta.png",rare:"normal"},
+  {id:46,name:"メガニウム",image:"images/meganiumu.png",rare:"rare"},
+  {id:47,name:"メガリザードンY",image:"images/riza-donY.png",rare:"epic"},
+  {id:48,name:"メガリザードンX",image:"images/riza-donX.png",rare:"epic"},
+  {id:49,name:"リザードン",image:"images/riza-don.png",rare:"rare"},
+  {id:50,name:"メガフシギバナ",image:"images/megahusigibana.png",rare:"epic"},
+  {id:51,name:"ヒトカゲ",image:"images/hitokage.png",rare:"normal"},
+  {id:52,name:"ゼニガメ",image:"images/zenigame.png",rare:"normal"},
+  {id:53,name:"フシギダネ",image:"images/husigidane.png",rare:"normal"},
+  {id:54,name:"メガチルタリス",image:"images/megatirutarisu.png",rare:"epic"}
 ];
 
 let currentMonster = null;
 let currentAnswer = 0;
+let currentOperator = "+";
 
 let enemyHP = 100;
 let maxHP = 100;
@@ -62,41 +94,138 @@ function startGame(){
 }
 
 function newMonster(){
+    let forcedRare = null;
+    // コンボ節目で確定出現
+    if(combo === 10){
 
-  currentMonster =
-    monsters[Math.floor(Math.random()*monsters.length)];
+      forcedRare = "rare";
 
-  document.getElementById("enemyName").textContent =
-    currentMonster.name;
+    }
+    else if(combo === 20){
 
-  const monsterEl =
-    document.getElementById("monster");
+      forcedRare = "epic";
 
-  monsterEl.src =
-    currentMonster.image;
+    }
+    else if(combo === 40){
 
-  monsterEl.classList.remove("rare");
+      forcedRare = "legend";
+    }
+    // 出現可能モンスター抽選
+    let availableMonsters =
+      monsters.filter(monster=>{
+        // 確定レア出現
+        if(forcedRare){
 
-  isRare = Math.random() < 0.15;
+          return monster.rare === forcedRare;
+        }
+        // 通常抽選
+        if(combo < 10){
 
-  if(isRare){
+          return monster.rare === "normal";
+        }
 
-    monsterEl.classList.add("rare");
+        else if(combo < 20){
 
-    document.getElementById("rareLabel")
-      .style.display = "block";
+          return (
+            monster.rare === "normal" ||
+            monster.rare === "rare"
+          );
+        }
 
-  }else{
+        else if(combo < 40){
 
-    document.getElementById("rareLabel")
-      .style.display = "none";
-  }
+          return (
+            monster.rare === "normal" ||
+            monster.rare === "rare" ||
+            monster.rare === "epic"
+          );
+        }
 
-  maxHP = isRare
-    ? 180 + level * 30
-    : 80 + level * 20;
+        else{
 
-  enemyHP = maxHP;
+          return true;
+        }
+      });
+
+    currentMonster =
+      availableMonsters[
+        Math.floor(
+          Math.random()*availableMonsters.length
+        )
+      ];
+      // legend演出
+      if(currentMonster.rare === "legend"){
+          showBossWarning();
+        }
+        //モンスター表示
+        document.getElementById("enemyName").textContent =
+        currentMonster.name;
+
+const monsterEl =
+  document.getElementById("monster");
+
+monsterEl.src =
+  currentMonster.image;
+
+monsterEl.classList.remove(
+  "rare-monster",
+  "epic-monster",
+  "legend-monster"
+);
+
+const rareLabel =
+  document.getElementById("rareLabel");
+
+if(currentMonster.rare === "rare"){
+
+  rareLabel.style.display = "block";
+  rareLabel.textContent = "✨レア✨";
+
+  monsterEl.classList.add("rare-monster");
+
+}
+else if(currentMonster.rare === "epic"){
+
+  rareLabel.style.display = "block";
+  rareLabel.textContent = "💎エピック💎";
+
+  monsterEl.classList.add("epic-monster");
+
+}
+else if(currentMonster.rare === "legend"){
+
+  rareLabel.style.display = "block";
+  rareLabel.textContent = "👑レジェンド👑";
+
+  monsterEl.classList.add("legend-monster");
+
+}
+else{
+
+  rareLabel.style.display = "none";
+}
+
+if(currentMonster.rare === "legend"){
+
+  maxHP = 400 + level * 50;
+
+}
+else if(currentMonster.rare === "epic"){
+
+  maxHP = 250 + level * 35;
+
+}
+else if(currentMonster.rare === "rare"){
+
+  maxHP = 160 + level * 25;
+
+}
+else{
+
+  maxHP = 80 + level * 20;
+}
+
+enemyHP = maxHP;
 
   updateHP();
 }
@@ -112,13 +241,36 @@ function updateHP(){
 
 function nextQuestion(){
 
-  const a = randomNumber();
-  const b = randomNumber();
+  let a = randomNumber();
+  let b = randomNumber();
 
-  currentAnswer = a + b;
+  const operators = ["+","-"];
 
-  document.getElementById("question").textContent =
-    `${a} + ${b} = ?`;
+  currentOperator =
+    operators[Math.floor(Math.random()*2)];
+
+  if(currentOperator === "-"){
+
+    // 小2向け
+    // マイナス防止
+
+    if(b > a){
+
+      let temp = a;
+      a = b;
+      b = temp;
+    }
+
+    currentAnswer = a - b;
+
+  }else{
+
+    currentAnswer = a + b;
+  }
+
+  document.getElementById("question")
+    .textContent =
+    `${a} ${currentOperator} ${b} = ?`;
 
   generateChoices();
 }
@@ -185,6 +337,7 @@ function checkAnswer(answer){
   if(answer === currentAnswer){
 
     combo++;
+    showAttackEffect();
 
     let damage =
       25 + combo * 3;
@@ -195,10 +348,10 @@ function checkAnswer(answer){
 
     enemyHP -= damage;
 
-    msg.textContent =
-      `こうげき！ ${damage}ダメージ！`;
+  msg.textContent =
+    `こうげき！ ${damage}ダメージ！`;
 
-    msg.className =
+  msg.className =
       "message correct";
 
     if(combo >= 3){
@@ -371,4 +524,71 @@ function loadBook(){
   }
 
   renderBook();
+}
+function showAttackEffect(){
+
+  const effect =
+    document.getElementById("attackEffect");
+
+  effect.className =
+    "attack-effect";
+
+  if(currentOperator === "+"){
+
+    effect.textContent =
+      "✨ まほうこうげき！ ✨";
+
+    effect.classList.add(
+      "magic"
+    );
+
+  }else{
+
+    effect.textContent =
+      "⚔️ ざんげきこうげき！ ⚔️";
+
+    effect.classList.add(
+      "slash"
+    );
+  }
+
+  setTimeout(()=>{
+
+    effect.classList.add(
+      "attack-show"
+    );
+
+  },10);
+
+  setTimeout(()=>{
+
+    effect.className =
+      "attack-effect";
+
+  },700);
+}
+function showBossWarning(){
+
+  return new Promise(resolve=>{
+
+    const warning =
+      document.getElementById(
+        "bossWarning"
+      );
+
+    warning.classList.add(
+      "warning-show"
+    );
+
+    setTimeout(()=>{
+
+      warning.classList.remove(
+        "warning-show"
+      );
+
+      resolve();
+
+    },2500);
+
+  });
 }
