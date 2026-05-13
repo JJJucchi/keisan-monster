@@ -23,7 +23,7 @@ const monsters = [
   {id:22,name:"フリーザー",image:"images/huri-za.png"},
   {id:23,name:"色違いのジガルデ",image:"images/jigarude.png"},
   {id:24,name:"色違いのジガルデ",image:"images/jigarude2.png"},
-  {id:25,name:"ダークライ",image:"images/S__108683306_0.png"},
+  {id:25,name:"ダークライ",image:"images/da-kurai.png"},
 ];
 
 let currentMonster = null;
