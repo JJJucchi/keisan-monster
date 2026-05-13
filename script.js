@@ -60,6 +60,7 @@ const monsters = [
 let currentMonster = null;
 let currentAnswer = 0;
 let currentOperator = "+";
+let nextForcedRare = null;
 
 let enemyHP = 100;
 let maxHP = 100;
@@ -94,22 +95,9 @@ function startGame(){
 }
 
 function newMonster(){
-    let forcedRare = null;
-    // コンボ節目で確定出現
-    if(combo === 10){
+    // 確定レア予約
+    let forcedRare = nextForcedRare;
 
-      forcedRare = "rare";
-
-    }
-    else if(combo === 20){
-
-      forcedRare = "epic";
-
-    }
-    else if(combo === 40){
-
-      forcedRare = "legend";
-    }
     // 出現可能モンスター抽選
     let availableMonsters =
       monsters.filter(monster=>{
@@ -153,6 +141,8 @@ function newMonster(){
           Math.random()*availableMonsters.length
         )
       ];
+      // 確定レア予約リセット
+      nextForcedRare = null;
       // legend演出
       if(currentMonster.rare === "legend"){
           showBossWarning();
@@ -337,6 +327,21 @@ function checkAnswer(answer){
   if(answer === currentAnswer){
 
     combo++;
+    // 確定レア予約
+    if(combo === 10){
+
+      nextForcedRare = "rare";
+    }
+
+    else if(combo === 20){
+
+      nextForcedRare = "epic";
+    }
+
+    else if(combo === 40){
+
+      nextForcedRare = "legend";
+    }    
     showAttackEffect();
 
     let damage =
