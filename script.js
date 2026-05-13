@@ -6,7 +6,24 @@ const monsters = [
   {id:5,name:"ミュウ",image:"images/myuu.png"},
   {id:6,name:"チルタリス",image:"images/tirutarisu.png"},
   {id:7,name:"ゲンガー",image:"images/genga.png"},
-
+  {id:8,name:"ピカチュウ",image:"images/pikachuu.png"},
+  {id:9,name:"キャプテンピカチュウ",image:"images/capttainpikachuu.png"},
+  {id:10,name:"メガカイリュー",image:"images/megakairyu.png"},
+  {id:11,name:"色違いのメガメタグロス",image:"images/megametagurosu.png"},
+  {id:12,name:"メガガブリアス",image:"images/megagaburiasu.png"},
+  {id:13,name:"ニャオハ",image:"images/nyaoha.png"},
+  {id:14,name:"ケルディオ",image:"images/kerudelio.png"},
+  {id:15,name:"イーブイ",image:"images/i-bui.png"},
+  {id:16,name:"ニンフィア",image:"images/ninfia.png"},
+  {id:17,name:"リーフィア",image:"images/ri-fia.png"},
+  {id:18,name:"サンダース",image:"images/sannda-su.png"},
+  {id:19,name:"ブースター",image:"images/bu-suta.png"},
+  {id:20,name:"ファイヤー",image:"images/faiyaa.png"},
+  {id:21,name:"サンダー",image:"images/sandaa.png"},
+  {id:22,name:"フリーザー",image:"images/huri-za.png"},
+  {id:23,name:"色違いのジガルデ",image:"images/jigarude.png"},
+  {id:24,name:"色違いのジガルデ",image:"images/jigarude2.png"},
+  {id:25,name:"ダークライ",image:"images/S__108683306_0.png"},
 ];
 
 let currentMonster = null;
