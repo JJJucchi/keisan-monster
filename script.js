@@ -56,7 +56,6 @@ const monsters = [
   {id:53,name:"フシギダネ",image:"images/husigidane.png",rare:"normal"},
   {id:54,name:"メガチルタリス",image:"images/megatirutarisu.png",rare:"epic"}
 ];
-
 let currentMonster = null;
 let currentAnswer = 0;
 let currentOperator = "+";
@@ -69,153 +68,125 @@ let level = 1;
 let score = 0;
 let combo = 0;
 
-let isRare = false;
-
 let monsterBook = [];
 
-const startBtn = document.getElementById("startBtn");
+let currentQuestionType = "add";
+let gameMode = "math";
 
-startBtn.addEventListener("click", startGame);
+async function newMonster(){
 
-function startGame(){
+  let forcedRare = nextForcedRare;
 
-  startBtn.style.display = "none";
+  let availableMonsters =
+    monsters.filter(monster=>{
 
-  loadBook();
+      if(forcedRare){
+        return monster.rare === forcedRare;
+      }
 
-  level = 1;
-  score = 0;
-  combo = 0;
+      if(combo < 10){
+        return monster.rare === "normal";
+      }
 
-  updateInfo();
+      else if(combo < 20){
 
-  newMonster();
+        return (
+          monster.rare === "normal" ||
+          monster.rare === "rare"
+        );
+      }
 
-  nextQuestion();
-}
+      else if(combo < 40){
 
-function newMonster(){
-    // 確定レア予約
-    let forcedRare = nextForcedRare;
+        return (
+          monster.rare === "normal" ||
+          monster.rare === "rare" ||
+          monster.rare === "epic"
+        );
+      }
 
-    // 出現可能モンスター抽選
-    let availableMonsters =
-      monsters.filter(monster=>{
-        // 確定レア出現
-        if(forcedRare){
+      else{
+        return true;
+      }
+    });
 
-          return monster.rare === forcedRare;
-        }
-        // 通常抽選
-        if(combo < 10){
+  currentMonster =
+    availableMonsters[
+      Math.floor(
+        Math.random()*availableMonsters.length
+      )
+    ];
 
-          return monster.rare === "normal";
-        }
+  nextForcedRare = null;
 
-        else if(combo < 20){
+  if(currentMonster.rare === "legend"){
+    await showBossWarning();
+  }
 
-          return (
-            monster.rare === "normal" ||
-            monster.rare === "rare"
-          );
-        }
+  document.getElementById("enemyName").textContent =
+    currentMonster.name;
 
-        else if(combo < 40){
+  const monsterEl =
+    document.getElementById("monster");
 
-          return (
-            monster.rare === "normal" ||
-            monster.rare === "rare" ||
-            monster.rare === "epic"
-          );
-        }
+  monsterEl.src =
+    currentMonster.image;
 
-        else{
+  monsterEl.classList.remove(
+    "rare-monster",
+    "epic-monster",
+    "legend-monster"
+  );
 
-          return true;
-        }
-      });
+  const rareLabel =
+    document.getElementById("rareLabel");
 
-    currentMonster =
-      availableMonsters[
-        Math.floor(
-          Math.random()*availableMonsters.length
-        )
-      ];
-      // 確定レア予約リセット
-      nextForcedRare = null;
-      // legend演出
-      if(currentMonster.rare === "legend"){
-          showBossWarning();
-        }
-        //モンスター表示
-        document.getElementById("enemyName").textContent =
-        currentMonster.name;
+  if(currentMonster.rare === "rare"){
 
-const monsterEl =
-  document.getElementById("monster");
+    rareLabel.style.display = "block";
+    rareLabel.textContent = "✨レア✨";
 
-monsterEl.src =
-  currentMonster.image;
+    monsterEl.classList.add("rare-monster");
+  }
 
-monsterEl.classList.remove(
-  "rare-monster",
-  "epic-monster",
-  "legend-monster"
-);
+  else if(currentMonster.rare === "epic"){
 
-const rareLabel =
-  document.getElementById("rareLabel");
+    rareLabel.style.display = "block";
+    rareLabel.textContent = "💎エピック💎";
 
-if(currentMonster.rare === "rare"){
+    monsterEl.classList.add("epic-monster");
+  }
 
-  rareLabel.style.display = "block";
-  rareLabel.textContent = "✨レア✨";
+  else if(currentMonster.rare === "legend"){
 
-  monsterEl.classList.add("rare-monster");
+    rareLabel.style.display = "block";
+    rareLabel.textContent = "👑レジェンド👑";
 
-}
-else if(currentMonster.rare === "epic"){
+    monsterEl.classList.add("legend-monster");
+  }
 
-  rareLabel.style.display = "block";
-  rareLabel.textContent = "💎エピック💎";
+  else{
 
-  monsterEl.classList.add("epic-monster");
+    rareLabel.style.display = "none";
+  }
 
-}
-else if(currentMonster.rare === "legend"){
+  if(currentMonster.rare === "legend"){
+    maxHP = 400 + level * 50;
+  }
 
-  rareLabel.style.display = "block";
-  rareLabel.textContent = "👑レジェンド👑";
+  else if(currentMonster.rare === "epic"){
+    maxHP = 250 + level * 35;
+  }
 
-  monsterEl.classList.add("legend-monster");
+  else if(currentMonster.rare === "rare"){
+    maxHP = 160 + level * 25;
+  }
 
-}
-else{
+  else{
+    maxHP = 80 + level * 20;
+  }
 
-  rareLabel.style.display = "none";
-}
-
-if(currentMonster.rare === "legend"){
-
-  maxHP = 400 + level * 50;
-
-}
-else if(currentMonster.rare === "epic"){
-
-  maxHP = 250 + level * 35;
-
-}
-else if(currentMonster.rare === "rare"){
-
-  maxHP = 160 + level * 25;
-
-}
-else{
-
-  maxHP = 80 + level * 20;
-}
-
-enemyHP = maxHP;
+  enemyHP = maxHP;
 
   updateHP();
 }
@@ -231,38 +202,29 @@ function updateHP(){
 
 function nextQuestion(){
 
-  let a = randomNumber();
-  let b = randomNumber();
+  if(gameMode === "length"){
 
-  const operators = ["+","-"];
-
-  currentOperator =
-    operators[Math.floor(Math.random()*2)];
-
-  if(currentOperator === "-"){
-
-    // 小2向け
-    // マイナス防止
-
-    if(b > a){
-
-      let temp = a;
-      a = b;
-      b = temp;
-    }
-
-    currentAnswer = a - b;
-
-  }else{
-
-    currentAnswer = a + b;
+    generateLengthQuestion();
+    return;
   }
 
-  document.getElementById("question")
-    .textContent =
-    `${a} ${currentOperator} ${b} = ?`;
+  const types = [
+    "add",
+    "sub"
+  ];
 
-  generateChoices();
+  currentQuestionType =
+    types[
+      Math.floor(Math.random()*types.length)
+    ];
+
+  if(currentQuestionType === "add"){
+    generateAddQuestion();
+  }
+
+  else{
+    generateSubQuestion();
+  }
 }
 
 function randomNumber(){
@@ -284,16 +246,42 @@ function generateChoices(){
 
   while(answers.length < 4){
 
-    const fake =
-      currentAnswer +
-      Math.floor(Math.random()*20)-10;
+    let fake;
 
-    if(
-      fake !== currentAnswer &&
-      fake > 0 &&
-      !answers.includes(fake)
-    ){
-      answers.push(fake);
+    // 数字問題
+    if(typeof currentAnswer === "number"){
+
+      fake =
+        currentAnswer +
+        Math.floor(Math.random()*20)-10;
+
+      if(
+        fake !== currentAnswer &&
+        fake > 0 &&
+        !answers.includes(fake)
+      ){
+        answers.push(fake);
+      }
+    }
+
+    // cm mm問題
+    else{
+
+      const cm =
+        Math.floor(Math.random()*10);
+
+      const mm =
+        Math.floor(Math.random()*10);
+
+      fake =
+        `${cm}cm${mm}mm`;
+
+      if(
+        fake !== currentAnswer &&
+        !answers.includes(fake)
+      ){
+        answers.push(fake);
+      }
     }
   }
 
@@ -318,7 +306,6 @@ function generateChoices(){
     buttons.appendChild(btn);
   });
 }
-
 function checkAnswer(answer){
 
   const msg =
@@ -327,21 +314,19 @@ function checkAnswer(answer){
   if(answer === currentAnswer){
 
     combo++;
-    // 確定レア予約
-    if(combo === 10){
 
+    if(combo === 10){
       nextForcedRare = "rare";
     }
 
     else if(combo === 20){
-
       nextForcedRare = "epic";
     }
 
     else if(combo === 40){
-
       nextForcedRare = "legend";
-    }    
+    }
+
     showAttackEffect();
 
     let damage =
@@ -353,10 +338,10 @@ function checkAnswer(answer){
 
     enemyHP -= damage;
 
-  msg.textContent =
-    `こうげき！ ${damage}ダメージ！`;
+    msg.textContent =
+      `こうげき！ ${damage}ダメージ！`;
 
-  msg.className =
+    msg.className =
       "message correct";
 
     if(combo >= 3){
@@ -364,26 +349,6 @@ function checkAnswer(answer){
       document.getElementById("combo")
         .textContent =
         `${combo}れんぞくコンボ！`;
-
-    }
-
-    if(combo === 5){
-
-      const monsterEl =
-        document.getElementById("monster");
-
-      monsterEl.classList.add("evolution");
-
-      msg.textContent =
-        "しんかパワー はつどう！";
-
-      setTimeout(()=>{
-
-        monsterEl.classList.remove(
-          "evolution"
-        );
-
-      },2500);
     }
 
     if(enemyHP <= 0){
@@ -392,39 +357,30 @@ function checkAnswer(answer){
 
       score++;
 
-      if(isRare){
-
-        msg.textContent =
-          "✨レアモンスターをたおした！✨";
-
-      }else{
-
-        msg.textContent =
-          "モンスターをたおした！";
-      }
-
       if(score % 3 === 0){
         level++;
       }
 
       updateInfo();
 
-      setTimeout(()=>{
+      setTimeout(async ()=>{
 
-        newMonster();
+        await newMonster();
 
         nextQuestion();
 
       },1000);
+    }
 
-    }else{
+    else{
 
       updateHP();
 
       setTimeout(nextQuestion,500);
     }
+  }
 
-  }else{
+  else{
 
     combo = 0;
 
@@ -448,8 +404,6 @@ function updateInfo(){
 
   document.getElementById("score")
     .textContent = score;
-
-  updateHP();
 }
 
 function addToBook(monster){
@@ -480,30 +434,24 @@ function renderBook(){
 
       card.className = "book-card";
 
-        card.innerHTML = `
-        <img
-            class="book-image"
-            src="${monster.image}"
-        >
+      card.innerHTML = `
+      <img
+        class="book-image"
+        src="${monster.image}"
+      >
 
-        <div>
-            ${monster.name}
-        </div>
-        `;
+      <div>${monster.name}</div>
+      `;
+    }
 
-    }else{
+    else{
 
       card.className =
         "book-card unknown";
 
       card.innerHTML = `
-        <div class="book-emoji">
-          ❓
-        </div>
-
-        <div>
-          ？？？
-        </div>
+      <div class="book-emoji">❓</div>
+      <div>？？？</div>
       `;
     }
 
@@ -530,6 +478,7 @@ function loadBook(){
 
   renderBook();
 }
+
 function showAttackEffect(){
 
   const effect =
@@ -543,43 +492,32 @@ function showAttackEffect(){
     effect.textContent =
       "✨ まほうこうげき！ ✨";
 
-    effect.classList.add(
-      "magic"
-    );
+    effect.classList.add("magic");
+  }
 
-  }else{
+  else{
 
     effect.textContent =
       "⚔️ ざんげきこうげき！ ⚔️";
 
-    effect.classList.add(
-      "slash"
-    );
+    effect.classList.add("slash");
   }
 
   setTimeout(()=>{
-
-    effect.classList.add(
-      "attack-show"
-    );
-
+    effect.classList.add("attack-show");
   },10);
 
   setTimeout(()=>{
-
-    effect.className =
-      "attack-effect";
-
+    effect.className = "attack-effect";
   },700);
 }
+
 function showBossWarning(){
 
   return new Promise(resolve=>{
 
     const warning =
-      document.getElementById(
-        "bossWarning"
-      );
+      document.getElementById("bossWarning");
 
     warning.classList.add(
       "warning-show"
@@ -594,6 +532,119 @@ function showBossWarning(){
       resolve();
 
     },2500);
-
   });
+}
+
+function generateAddQuestion(){
+
+  currentOperator = "+";
+
+  let a = randomNumber();
+  let b = randomNumber();
+
+  currentAnswer = a + b;
+
+  document.getElementById("question")
+    .textContent =
+    `${a} + ${b} = ?`;
+
+  generateChoices();
+}
+
+function generateSubQuestion(){
+
+  currentOperator = "-";
+
+  let a = randomNumber();
+  let b = randomNumber();
+
+  if(b > a){
+
+    let temp = a;
+    a = b;
+    b = temp;
+  }
+
+  currentAnswer = a - b;
+
+  document.getElementById("question")
+    .textContent =
+    `${a} - ${b} = ?`;
+
+  generateChoices();
+}
+
+function generateLengthQuestion(){
+
+  const patterns = [];
+
+  // 複合単位 → mm
+  {
+    const cm =
+      Math.floor(Math.random()*9)+1;
+
+    const mm =
+      Math.floor(Math.random()*9)+1;
+
+    patterns.push({
+      q:`${cm}cm ${mm}mm = ?mm`,
+      a:cm*10 + mm
+    });
+  }
+
+  // mm → cmとmm
+  {
+    const total =
+      Math.floor(Math.random()*90)+10;
+
+    const cm =
+      Math.floor(total/10);
+
+    const mm =
+      total%10;
+
+    patterns.push({
+      q:`${total}mm = ?cm?mm`,
+      a:`${cm}cm${mm}mm`
+    });
+  }
+
+  const p =
+    patterns[
+      Math.floor(
+        Math.random()*patterns.length
+      )
+    ];
+
+  currentAnswer = p.a;
+
+  document.getElementById("question")
+    .textContent = p.q;
+
+  generateChoices();
+}
+
+async function startGame(mode){
+
+  gameMode = mode;
+
+  loadBook();
+
+  level = 1;
+  score = 0;
+  combo = 0;
+
+  updateInfo();
+
+  document.getElementById(
+    "modeSelect"
+  ).style.display = "none";
+
+  document.getElementById(
+    "gameContainer"
+  ).style.display = "block";
+
+  await newMonster();
+
+  nextQuestion();
 }

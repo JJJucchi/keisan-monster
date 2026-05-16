@@ -12,7 +12,11 @@
 
 <body>
 
-  <div class="game">
+  <div
+  id="gameContainer"
+  class="game"
+  style="display:none;"
+  >
 
     <h1>けいさんモンスター</h1>
 
@@ -54,9 +58,7 @@
       <div>たおした数 <span id="score">0</span></div>
     </div>
 
-    <button class="start-btn" id="startBtn">
-      スタート！
-    </button>
+
 
     <div class="collection-box">
 
@@ -70,12 +72,25 @@
 
   <script src="script.js"></script>
 
-<div id="bossWarning" class="boss-warning">
+  <div id="bossWarning" class="boss-warning">
 
-  <div class="warning-text">
-    ⚠️ BOSS WARNING ⚠️
+    <div class="warning-text">
+      ⚠️ BOSS WARNING ⚠️
+    </div>
+
   </div>
+  <div id="modeSelect" class="mode-select">
 
-</div>
+    <h2>モードをえらぼう！</h2>
+
+    <button onclick="startGame('math')">
+      ⚔️ けいさんモード
+    </button>
+
+    <button onclick="startGame('length')">
+      📏 ながさモード
+    </button>
+
+  </div>
 </body>
 </html>
